@@ -15,52 +15,11 @@ cron-1  |
 cron-1  | /bin/sh: wrong_command: not found
 ```
 
+### [Cron TODO](cron/CRON.TODO.md)
+
 ### Docker Copy and change owner
 
 ### How to copy multiple files in one layer using a Dockerfile? 
-
-### kennyhyun/alpine-cron
-
-https://github.com/kennyhyun/alpine-cron/blob/master/docker-compose.yml
-
-https://hub.docker.com/r/kennyhyun/alpine-cron
-
-### https://www.baeldung.com/linux/cron-job-redirect-output-stdout
-
-### https://unix.stackexchange.com/questions/325346/how-to-execute-the-command-in-cronjob-to-display-the-output-in-terminal
-
-### https://superuser.com/questions/122246/how-can-i-view-results-of-my-cron-jobs
-
-
-
-### https://serverfault.com/questions/137468/better-logging-for-cronjobs-send-cron-output-to-syslog
-
-### https://serverfault.com/questions/56222/can-cron-write-job-output-to-a-log-by-default-instead-of-mail
-
-### https://stackoverflow.com/questions/56901751/enable-crond-in-an-alpine-container
-
-### https://stackoverflow.com/questions/37015624/how-to-run-a-cron-job-inside-a-docker-container
-
-
-### geekidea/alpine-cron
-
-https://medium.com/@geekidea_81313/running-cron-jobs-as-non-root-on-alpine-linux-e5fa94827c34
-https://github.com/inter169/systs/blob/master/alpine/crond/README.md
-https://hub.docker.com/r/geekidea/alpine-cron
-
-### https://github.com/keckelt/cron-alpine
-
-### funnyzak/alpine-cron-docker
-
-https://github.com/funnyzak/alpine-cron-docker
-
-### https://stackoverflow.com/questions/56901751/enable-crond-in-an-alpine-container
-
-### paradoxon/alpine-cron
-
-https://hub.docker.com/r/paradoxon/alpine-cron
-https://hub.docker.com/u/paradoxon
-
 
 ### Docker base practices
 
