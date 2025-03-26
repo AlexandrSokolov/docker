@@ -27,6 +27,10 @@ cron-1  | /bin/sh: wrong_command: not found
 [Top 20 Dockerfile best practices](https://sysdig.com/learn-cloud-native/dockerfile-best-practices/)
 
 
+### on google docs
+
+https://docs.google.com/document/d/15MAekRYXeFXUDwPtvy6_9g2q5gLySvtGzs88FDkCXM0/edit?tab=t.0
+
 ### [Base Docker images with JVM](docs/Base.Docker.images.md#base-docker-images-with-jvm)
 
 ?
