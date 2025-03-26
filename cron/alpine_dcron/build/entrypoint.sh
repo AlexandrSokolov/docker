@@ -4,7 +4,8 @@ set -e
 # if `/etc/cron.d` is not empty:
 [ "$(ls -A /etc/cron.d)" ] && cp -f /etc/cron.d/* /var/spool/cron/crontabs/ || true
 
-chmod -f 0644 /var/spool/cron/crontabs/*
+chmod 0644 /var/spool/cron/crontabs/*
+chmod +x /scripts/*
 
 # set timezone
 echo Configured timezone - TZ=\'"$TZ"\'

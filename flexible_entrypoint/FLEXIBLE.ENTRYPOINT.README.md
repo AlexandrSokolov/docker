@@ -1,3 +1,5 @@
+[How to start a stopped Docker container with a different command?](https://stackoverflow.com/questions/32353055/how-to-start-a-stopped-docker-container-with-a-different-command/79536407#79536407)
+
 ## Existing problem with ENTRYPOINT
 
 We start `Docker` container, often as docker composition, and it does not work as expected and stops.
@@ -39,7 +41,7 @@ If something goes wrong, we restart the service in the same environment with `ba
     #!/bin/sh
     
     echo --- Starting cron daemon ---
-    crond "$@"
+    crond -f "$@"
     ```
 4. [Define in `Dockerfile` both `ENTRYPOINT` and `CMD` instruction](build/Dockerfile):
     ```Dockerfile
@@ -51,7 +53,21 @@ If something goes wrong, we restart the service in the same environment with `ba
     CMD ["/startup.sh"]
     ```
     Note: Don't forget to set the execute permissions.
-5. 
+5. [Docker compose with a mounted scripts folder and TZ variable](docker-compose.yaml):
+   ```yaml
+   services:
+   
+      cron:
+         image: savdev/flexible-entrypoint
+         build:
+            context: ./build
+         volumes:
+            - ./scripts:/scripts
+         environment:
+            - TZ=${TZ:-Europe/Berlin}
+         networks:
+            - default
+   ```
 6. Run the docker composition with a default command:
     ```bash
     docker compose up

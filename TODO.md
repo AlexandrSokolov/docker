@@ -1,4 +1,6 @@
-### removing the previous, task, really needed?
+### Docker Copy and change owner
+
+### How to copy multiple files in one layer using a Dockerfile? 
 
 ### kennyhyun/alpine-cron
 

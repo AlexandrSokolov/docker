@@ -17,6 +17,7 @@
 - [Running `cron` jobs if the system is suspended or powered off (`anacron`-like feature)](#running-cron-jobs-if-the-system-is-suspended-or-powered-off-anacron-like-feature)
 
 ### Features you must configure in the Docker
+- [Configure flexible entrypoint](../flexible_entrypoint/FLEXIBLE.ENTRYPOINT.README.md)
 - [`crond` installation](#cron-implementation-options)
 - [Remove default crontab](#remove-default-crontab)
 - [Display the timezone for `crond` service](#timezone-setting)
@@ -25,7 +26,7 @@
 - [Display the current cron tasks on the container start](#current-cron-tasks)
 - [Logging of `crond` service]()
 - [Logging of `cron` tasks]()
-- [Start `crond` in foreground mode wrapped via bash script](#start-crond-service-in-docker)
+- [Start `crond` in foreground mode](#start-crond-service-in-docker)
 
 ### Base Docker Image for a cron service
 
@@ -82,6 +83,9 @@ We have to handle timezone `TZ` environment variable.
 As a result we cannot start `crond` directly from `Dockerfile` with `ENTRYPOINT` instruction.
 
 We must wrap all the logic during container startup with [`entrypoint.sh`](alpine_dcron/build/entrypoint.sh) bash script.
+
+[Configure flexible entrypoint](../flexible_entrypoint/FLEXIBLE.ENTRYPOINT.README.md)
+
 
 ### Timezone setting
 
