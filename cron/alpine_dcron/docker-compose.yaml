@@ -9,5 +9,11 @@ services:
       - ./cron/scripts:/scripts
     environment:
       - TZ=${TZ:-Europe/Berlin}
+      - |
+        CRON_TASKS=
+        */1       *       *       *       *       echo hello from on-fly task 1 
+        */2       *       *       *       *       echo hello from on-fly on-fly task 2
+        *       *       *       *       *       wrong_command
+        completely * wrong * expression
     networks:
       - default

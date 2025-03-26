@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 # if `/etc/cron.d` is not empty:
@@ -16,6 +16,14 @@ echo ----------------------------
 
 # remove default crontab
 echo '' | crontab -
+
+if [[ $CRON_TASKS ]]; then
+  while IFS= read -r cron_task; do
+    if [[ $cron_task ]]; then
+      crontab -l | { cat; echo "$cron_task"; } | crontab -
+    fi
+  done <<< "$CRON_TASKS"
+fi
 
 echo - Configured crontabs:
 crontab -l

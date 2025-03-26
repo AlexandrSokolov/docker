@@ -21,11 +21,11 @@
 - [`crond` installation](#cron-implementation-options)
 - [Remove default crontab](#remove-default-crontab)
 - [Display the timezone for `crond` service](#timezone-setting)
-- [Mount cron tasks as scripts via volumes]()
-- [Pass cron tasks as commands via variables]()
+- [Mount cron tasks as scripts via volumes](todo)
+- [Pass cron tasks as commands via variables](todo)
 - [Display the current cron tasks on the container start](#current-cron-tasks)
-- [Logging of `crond` service]()
-- [Logging of `cron` tasks]()
+- [Logging of `crond` service](todo)
+- [Logging of `cron` tasks](todo)
 - [Start `crond` in foreground mode](#start-crond-service-in-docker)
 
 ### Base Docker Image for a cron service

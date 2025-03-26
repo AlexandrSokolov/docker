@@ -1,3 +1,20 @@
+###
+
+```text
+cron-1  | --- Starting cron daemon ---
+cron-1  | crond 4.5 dillon's cron daemon, started with loglevel info
+cron-1  | failed parsing crontab for user root: completely * wrong * expression
+
+cron-1  | /bin/sh: wrong_command: not found
+
+
+cron-1  | Wed Mar 26 16:38:16 MSK 2025
+cron-1  | To: root
+cron-1  | Subject: cron for user root wrong_command
+cron-1  | 
+cron-1  | /bin/sh: wrong_command: not found
+```
+
 ### Docker Copy and change owner
 
 ### How to copy multiple files in one layer using a Dockerfile? 
