@@ -1,0 +1,12 @@
+services:
+
+  cron:
+    image: savdev/flexible-entrypoint
+    build:
+      context: ./build
+    volumes:
+      - ./scripts:/scripts
+    environment:
+      - TZ=${TZ:-Europe/Berlin}
+    networks:
+      - default

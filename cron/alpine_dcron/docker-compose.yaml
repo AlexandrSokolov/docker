@@ -1,0 +1,13 @@
+services:
+
+  cron:
+    image: savdev/alpine-dcron
+    build:
+      context: ./build
+    volumes:
+      - ./cron/tasks:/etc/cron.d
+      - ./cron/scripts:/scripts
+    environment:
+      - TZ=${TZ:-Europe/Berlin}
+    networks:
+      - default

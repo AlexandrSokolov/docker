@@ -1,0 +1,4 @@
+# This is my test cron task #1:
+*       *       *       *       *       /scripts/test_1.sh
+# This is my test cron task #2:
+*       *       *       *       *       /scripts/test_2.sh
