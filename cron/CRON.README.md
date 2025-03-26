@@ -28,6 +28,10 @@
 - [Logging of `cron` tasks](todo)
 - [Start `crond` in foreground mode](#start-crond-service-in-docker)
 
+### Docker projects:
+- [`Alpine` with `dcron` and image building](alpine_dcron)
+- [`Alpine` with `dcron` and `kennyhyun/alpine-cron` published image](alpine_dcron_published/README.md)
+
 ### Base Docker Image for a cron service
 
 [`Alpine`](https://hub.docker.com/_/alpine) - a minimal distribution

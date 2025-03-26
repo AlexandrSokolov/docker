@@ -1,3 +1,7 @@
+This project is based on `Alpine` base image and `dcron` as `cron` implementation.
+
+[This project is based on `kennyhyun/alpine-cron`](https://github.com/kennyhyun/alpine-cron)
+
 ### Documentation
 
 - [Dillon's lightweight cron daemon](https://www.jimpryor.net/linux/dcron.html)

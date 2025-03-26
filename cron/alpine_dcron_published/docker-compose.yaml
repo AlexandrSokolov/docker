@@ -1,0 +1,11 @@
+services:
+
+  cron:
+    image: kennyhyun/alpine-cron
+    volumes:
+      - ./cron/tasks:/etc/cron.d
+      - ./cron/scripts:/scripts
+    environment:
+      - TZ=Europe/Berlin
+    networks:
+      - default
