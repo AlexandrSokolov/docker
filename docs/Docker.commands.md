@@ -1,4 +1,3 @@
-- [Start a stopped `Docker` container with a different command and attach]
 - [Run `Docker` container](#run-docker-container)
 - [Stop `Docker` container(s)](#stop-docker-containers)
 - [Remove `Docker` container(s)](#remove-docker-containers)
@@ -8,23 +7,7 @@
 
 ### Start a stopped `Docker` container with a different command
 
-With this way, you can investigate only the file-system of the built `Docker` image.
-Environment variables, network configuration, attached volumes and other stuff is not inherited!
 
-Note: [a better approach](../flexible_entrypoint/FLEXIBLE.ENTRYPOINT.README.md#build-image-to-be-able-to-start-a-container-with-different-commands) 
-is to build image and run container in the way, 
-when you can easily restart a stopped container with a different command (`bash` for instance)
-
-```bash
-#find the stopped container
-docker ps -a
-#commit the changes into a new image
-docker commit ${container_id} tmp/image_to_check
-#start with a different entripoint:
-docker run -it --entrypoint=sh tmp/image_to_check
-```
-
-[How to start a stopped Docker container with a different command?](https://stackoverflow.com/questions/32353055/how-to-start-a-stopped-docker-container-with-a-different-command)
 
 
 ### Run `Docker` container
@@ -52,6 +35,24 @@ When you run the container, set `Docker` image that either:
     ```bash
     docker run --rm image_name
     ```
+4. Run a stopped `Docker` container with a different command
+   ```bash
+   #find the stopped container
+   docker ps -a
+   #commit the changes into a new image
+   docker commit ${container_id} tmp/image_to_check
+   #start with a different entripoint:
+   docker run -it --entrypoint=sh tmp/image_to_check
+   ```
+   With this way, you can investigate only the file-system of the built `Docker` image.
+
+   Environment variables, network configuration, attached volumes and other stuff is not inherited!
+
+   [A better approach](../flexible_entrypoint/FLEXIBLE.ENTRYPOINT.README.md#build-image-to-be-able-to-start-a-container-with-different-commands)
+   is to build image and run container in the way,
+   when you can easily restart a stopped container with a different command (`bash` for instance)
+
+   [How to start a stopped Docker container with a different command?](https://stackoverflow.com/questions/32353055/how-to-start-a-stopped-docker-container-with-a-different-command)
 
 ### Stop `Docker` container(s)
 
