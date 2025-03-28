@@ -9,11 +9,11 @@ We need a way to overwrite the default command.
 
 ## The idea behind the solution
 
-The default command wrapped in script and passed via `CMD`.
+The default service wrapped into [a script](build/startup.sh) and passed via `CMD`.
 All the logic to start the container, like handling of variables, mounted files, permissions - 
-we put into the entrypoint script.
+we put into [the entrypoint script](build/entrypoint.sh).
 
-When we start the container our default script is running.
+When we start the container our default script is running. 
 
 If something goes wrong, we restart the service in the same environment with `bash` to investigate it.
 
@@ -72,7 +72,7 @@ If something goes wrong, we restart the service in the same environment with `ba
     ```bash
     docker compose up
     ```
-6. Run the docker composition with `bash`:
-    ```bash
-    docker compose run -it --entrypoint=sh cron
-    ```
+7. Run the single service (in our case `cron`) of the docker composition with `bash`
+   ```bash
+   docker compose run -it cron sh
+   ```

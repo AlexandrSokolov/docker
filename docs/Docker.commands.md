@@ -1,14 +1,29 @@
+- [Run `Docker` composition](#run-docker-composition)
 - [Run `Docker` container](#run-docker-container)
+- [Connect to the running container](#connect-to-the-running-container)
 - [Stop `Docker` container(s)](#stop-docker-containers)
 - [Remove `Docker` container(s)](#remove-docker-containers)
 - [Remove `Docker` image(s)](#remove-docker-images)
 - [TODO remove volumes]()
 - [Purge the system](#purge-the-system)
 
-### Start a stopped `Docker` container with a different command
+### Run `Docker` composition
 
-
-
+1. Run with a default `docker-compose.yaml` composition file:
+   ```bash
+   docker compose up
+   ```
+2. Run with a custom composition file:
+   ```bash
+   docker compose -f custom.compos.yaml up
+   ```
+3. Start and remove orphan containers:
+   ```bash
+   docker compose up --remove-orphans
+   ```
+   Orphan containers - containers that were created by Docker composition but 
+   are no longer defined in the current docker-compose.yml file.
+4. 
 
 ### Run `Docker` container
 
@@ -53,6 +68,18 @@ When you run the container, set `Docker` image that either:
    when you can easily restart a stopped container with a different command (`bash` for instance)
 
    [How to start a stopped Docker container with a different command?](https://stackoverflow.com/questions/32353055/how-to-start-a-stopped-docker-container-with-a-different-command)
+
+### Connect to the running container
+
+1. By container name/id:
+   ```bash
+   docker exec -it container_name sh
+   ```
+2. By the service name of the docker composition:
+   ```bash
+   docker compose exec cron sh
+   ```
+   where `cron` the service name, `sh` - is a shell
 
 ### Stop `Docker` container(s)
 

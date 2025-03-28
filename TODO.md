@@ -1,4 +1,5 @@
-###
+### provide script based and command based examples with the published image
+### go throough all hte finished documentation to fix/update
 
 ```text
 cron-1  | --- Starting cron daemon ---
@@ -48,6 +49,8 @@ ONBUILD RUN mvn install
 [How to build a docker container for a Java application](https://stackoverflow.com/questions/31696439/how-to-build-a-docker-container-for-a-java-application/31710204#31710204)
 
 ### [Package managers, based on the OS](docs/Base.Docker.images.md#package-managers-based-on-the-os)
+
+### Docker commands remove volumes
 
 ### [Docker `ONBUILD` instruction](https://stackoverflow.com/questions/34863114/dockerfile-onbuild-instruction)
 
