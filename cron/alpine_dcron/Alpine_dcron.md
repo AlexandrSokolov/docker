@@ -1,6 +1,34 @@
-This project is based on `Alpine` base image and `dcron` as `cron` implementation.
+This project allows to set cron tasks either:
+1. on the fly via `environment` without mounting any files or
+2. via defining scripts and cron tasks that will trigger those scripts
+
+It is based on `Alpine` base image and `dcron` as `cron` implementation.
 
 [This project is based on `kennyhyun/alpine-cron`](https://github.com/kennyhyun/alpine-cron)
+
+
+### How to use
+
+#### Pass cron tasks as a command.
+```yaml
+    environment:
+      - |
+        CRON_TASKS=
+        *       *       *       *       *       echo hello from on-fly task 1 
+        *       *       *       *       *       curl -i -X HEAD -w "\n" -H 'Content-Type: application/json' http://www.google.de
+```
+No volumes mounting is needed. 
+
+#### Pass cron tasks as a bash script
+
+1. Locate the scripts under `cron/sctipts` folder
+2. Define a cron task, that runs this script in the `cron/cron_tasks`.
+3. Mount the files in the docker composition:
+    ```yaml
+        volumes:
+          - ./cron/tasks:/etc/cron.d
+          - ./cron/scripts:/scripts
+    ```
 
 ### Documentation
 
@@ -27,7 +55,6 @@ todo
 
 ### Topics
 - [`dcron` installation on `Alpine`](#crond-installation-on-alpine)
-
 - [`crond` service logging]()
 - [`cron` tasks logging]()
 - [`dcron` with Docker](#dcron-with-docker)

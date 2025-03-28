@@ -1,3 +1,5 @@
+### find all todo in CRON.README.md - they relate to logging (cron itself and its tasks)
+
 ### https://www.baeldung.com/linux/cron-job-redirect-output-stdout
 
 ### https://unix.stackexchange.com/questions/325346/how-to-execute-the-command-in-cronjob-to-display-the-output-in-terminal

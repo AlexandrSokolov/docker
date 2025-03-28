@@ -1,3 +1,7 @@
+### Docker cron projects:
+- [`Alpine` with `dcron` and image building](alpine_dcron/Alpine_dcron.md)
+- [`Alpine` with `dcron` and `kennyhyun/alpine-cron` published image](alpine_dcron_published/README.md)
+- 
 ### Documentation
 
 - [Gentoo wiki's cron guide](https://wiki.gentoo.org/wiki/Cron)
@@ -12,8 +16,8 @@
 - [Current `cron` tasks](#current-cron-tasks)
 - [Remove default crontab](#remove-default-crontab)
 - [`cron` jobs setting](#cron-jobs-setting-without-the-interactive-editor)
-- [`crond` service logging]()
-- [`cron` tasks logging]()
+- [`crond` service logging](todo)
+- [`cron` tasks logging](todo)
 - [Running `cron` jobs if the system is suspended or powered off (`anacron`-like feature)](#running-cron-jobs-if-the-system-is-suspended-or-powered-off-anacron-like-feature)
 
 ### Features you must configure in the Docker
@@ -21,16 +25,13 @@
 - [`crond` installation](#cron-implementation-options)
 - [Remove default crontab](#remove-default-crontab)
 - [Display the timezone for `crond` service](#timezone-setting)
-- [Mount cron tasks as scripts via volumes](todo)
-- [Pass cron tasks as commands via variables](todo)
+- [Cron task as scripts mounted via `Docker` volumes](#cron-task-as-scripts-mounted-via-docker-volumes)
+- [Cron task on the fly via `environment` without any files mounting](#cron-task-with-a-command-via-environment-attribute)
 - [Display the current cron tasks on the container start](#current-cron-tasks)
 - [Logging of `crond` service](todo)
 - [Logging of `cron` tasks](todo)
 - [Start `crond` in foreground mode](#start-crond-service-in-docker)
 
-### Docker projects:
-- [`Alpine` with `dcron` and image building](alpine_dcron)
-- [`Alpine` with `dcron` and `kennyhyun/alpine-cron` published image](alpine_dcron_published/README.md)
 
 ### Base Docker Image for a cron service
 
@@ -191,16 +192,16 @@ Note: The script name must not contain dots. It cannot be named as: `mycron.sh`
 
 [Why don't my cron jobs run?](https://wiki.alpinelinux.org/wiki/Alpine_Linux:FAQ#Why_don't_my_cron_jobs_run)
 
-### Mount cron tasks as scripts via `Docker` volumes
+### Cron task as scripts mounted via `Docker` volumes
 
-[How to configure `cron` task as a script](#cron-task-as-a-script)
+Examples:
+- [With your own Docker image](alpine_dcron/Alpine_dcron.md#pass-cron-tasks-as-a-bash-script)
+- [With the published Docker image](alpine_dcron_published/README.md)
 
-We do not build `Docker` image with `cron` tasks, defined as scripts.
-We mount them when container is starting instead.
+### Cron task with a command via `environment` attribute
 
-### Pass cron tasks to `Docker` container as commands via variables
-
-[How to configure `cron` task as a command without script on the fly](#run-on-the-fly-as-a-command-without-script)
+Examples:
+- [With your own Docker image](alpine_dcron/Alpine_dcron.md#pass-cron-tasks-as-a-command)
 
 ### Running `cron` jobs if the system is suspended or powered off (`anacron`-like feature)
 
