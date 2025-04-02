@@ -36,11 +36,6 @@ ONBUILD RUN mvn install
 
 ### Docker commands remove volumes
 
-### docker timezone solution, see example in [Alpine with `dcron`](cron/alpine_dcron/Alpine_dcron.md)
-
-Note: as an altenrative to know - setting timezone for Spring Boot itself:
-https://www.baeldung.com/spring-boot-set-default-timezone
-
 ### [Docker `ONBUILD` instruction](https://stackoverflow.com/questions/34863114/dockerfile-onbuild-instruction)
 
 [ONBUILD INSTRUCTION](https://docs.docker.com/reference/dockerfile/#onbuild)

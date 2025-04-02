@@ -1,0 +1,10 @@
+services:
+
+  timezone-demo:
+    image: savdev/timezone
+    build:
+      context: ./build
+    environment:
+      - TZ=${TZ:-Europe/Berlin}
+    networks:
+      - default

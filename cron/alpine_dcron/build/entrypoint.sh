@@ -8,7 +8,7 @@ chmod 0644 /var/spool/cron/crontabs/*
 chmod +x /scripts/*
 
 # set timezone
-echo Configured timezone - TZ=\'"$TZ"\'
+echo Timezone - TZ=\'"$TZ"\'
 rm -f /etc/localtime
 ln -s /usr/share/zoneinfo/$TZ /etc/localtime
 echo $TZ > /etc/timezone
@@ -25,7 +25,7 @@ if [[ $CRON_TASKS ]]; then
   done <<< "$CRON_TASKS"
 fi
 
-echo - Configured crontabs:
+echo - Cron tasks:
 crontab -l
 cat /var/spool/cron/crontabs/*
 echo ----------------------------
