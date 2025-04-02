@@ -52,7 +52,7 @@ RUN apk add --no-cache tzdata docker-cli bash curl
     ```bash
     crond -L /var/log/crond.log
     ```
-4. Logging to file todo
+4. Logging to mail - not supported
 
 ### `cron` tasks logging
 

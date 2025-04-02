@@ -217,7 +217,7 @@ The exact logger depends on `crond` implementation.
 
 Not all `cron` implementations support redirection to console. 
 ```bash
-# the output of `echo` functions only for specific `crond` implementations
+# works only for specific implementations:
 crontab -l | { cat; echo "*       *       *       *       *       echo hello > /dev/stdout 2>&1"; } | crontab -
 ```
 
