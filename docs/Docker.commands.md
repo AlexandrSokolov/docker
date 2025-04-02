@@ -1,5 +1,6 @@
 - [Run `Docker` composition](#run-docker-composition)
 - [Run `Docker` container](#run-docker-container)
+- [Run the command on the running container](#run-the-command-on-the-running-container)
 - [Connect to the running container](#connect-to-the-running-container)
 - [Stop `Docker` container(s)](#stop-docker-containers)
 - [Remove `Docker` container(s)](#remove-docker-containers)
@@ -68,6 +69,11 @@ When you run the container, set `Docker` image that either:
    when you can easily restart a stopped container with a different command (`bash` for instance)
 
    [How to start a stopped Docker container with a different command?](https://stackoverflow.com/questions/32353055/how-to-start-a-stopped-docker-container-with-a-different-command)
+
+### Run the command on the running container
+```bash
+docker exec container_name date
+```
 
 ### Connect to the running container
 

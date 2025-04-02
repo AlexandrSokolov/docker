@@ -55,9 +55,10 @@ todo
 
 ### Topics
 - [`dcron` installation on `Alpine`](#crond-installation-on-alpine)
-- [`crond` service logging]()
-- [`cron` tasks logging]()
 - [`dcron` with Docker](#dcron-with-docker)
+- [`dcron` service logging](#dcron-service-logging)
+- [`cron` tasks logging](#dcron-tasks-logging)
+
 
 ### `dcron` installation on `Alpine`
 
@@ -86,3 +87,7 @@ RUN apk add --no-cache dcron tzdata docker-cli bash curl
 ```
 - `dcron` cron package
 - `tzdata` - the Time Zone Database (often called `tz` or `zoneinfo`)
+
+### `dcron` service logging
+
+### `dcron` tasks logging

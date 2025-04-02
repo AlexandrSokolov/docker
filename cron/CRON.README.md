@@ -16,8 +16,8 @@
 - [Current `cron` tasks](#current-cron-tasks)
 - [Remove default crontab](#remove-default-crontab)
 - [`cron` jobs setting](#cron-jobs-setting-without-the-interactive-editor)
-- [`crond` service logging](todo)
-- [`cron` tasks logging](todo)
+- [`crond` service logging](#crond-service-logging)
+- [`cron` tasks logging](#cron-tasks-logging)
 - [Running `cron` jobs if the system is suspended or powered off (`anacron`-like feature)](#running-cron-jobs-if-the-system-is-suspended-or-powered-off-anacron-like-feature)
 
 ### Features you must configure in the Docker
@@ -28,8 +28,8 @@
 - [Cron task as scripts mounted via `Docker` volumes](#cron-task-as-scripts-mounted-via-docker-volumes)
 - [Cron task on the fly via `environment` without any files mounting](#cron-task-with-a-command-via-environment-attribute)
 - [Display the current cron tasks on the container start](#current-cron-tasks)
-- [Logging of `crond` service](todo)
-- [Logging of `cron` tasks](todo)
+- [Logging of `crond` service](#crond-service-logging)
+- [Logging of `cron` tasks](#cron-tasks-logging)
 - [Start `crond` in foreground mode](#start-crond-service-in-docker)
 
 
@@ -191,6 +191,39 @@ Note: The script name must not contain dots. It cannot be named as: `mycron.sh`
     ```
 
 [Why don't my cron jobs run?](https://wiki.alpinelinux.org/wiki/Alpine_Linux:FAQ#Why_don't_my_cron_jobs_run)
+
+### `crond` service logging
+
+`crond` can log into:
+- console
+- syslog. It could be:
+  - [`syslog`](https://wiki.alpinelinux.org/wiki/Syslog)
+  - [`rsyslog`](https://wiki.gentoo.org/wiki/Rsyslog)
+  - [`syslog-ng`](https://wiki.gentoo.org/wiki/Syslog-ng)
+- to a file
+- to mail
+
+For some implementations you can change verbosity. For instance for `BusyBox` `crond` implementation:
+```text
+-l N	Set log level. Most verbose 0, default 8
+-d N	Set log level, log to stderr
+```
+
+The exact logger depends on `crond` implementation.
+#### [Logging for `dcron`](alpine_dcron/Alpine_dcron.md#dcron-service-logging)
+#### [Logging for `BusyBox` `cron`](alpine_busybox_cron/Alpine_BusyBox_cron.md#cron-service-logging)
+
+### `cron` tasks logging
+
+Not all `cron` implementations support redirection to console. 
+```bash
+# the output of `echo` functions only for specific `crond` implementations
+crontab -l | { cat; echo "*       *       *       *       *       echo hello > /dev/stdout 2>&1"; } | crontab -
+```
+
+#### [Logging of `cron` tasks for `dcron`](alpine_dcron/Alpine_dcron.md#dcron-tasks-logging)
+#### [Logging of `cron`tasks for `BusyBox` `cron`](alpine_busybox_cron/Alpine_BusyBox_cron.md#cron-tasks-logging)
+
 
 ### Cron task as scripts mounted via `Docker` volumes
 
