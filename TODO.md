@@ -1,3 +1,21 @@
+docker + SB
+documentation
+cron job
+logs https://docs.google.com/document/d/1jCoccX1k0CCxs1AgvDUFqQhoiEmnqiDqFnv24TGtSZk/edit?tab=t.0
+Зависимость внутренних проектов сделать, чтобы было видно на базе каких, что сделано, куда вносить изменения
+docker cron logging
+
+### Docker monitoring
+
+
+### Docker loggging
+
+jq -r '.log' /var/lib/docker/containers/6ee2394c556cd2896369881469b2bfde344133034c25d32e2aa125e3d4627d80/6ee2394c556cd2896369881469b2bfde344133034c25d32e2aa125e3d4627d80-json.log > /tmp/si_containers_cron_1.log
+
+https://docs.docker.com/engine/logging/
+
+
+
 ### [Cron TODO](cron/CRON.TODO.md)
 
 ### Logging in the containers
