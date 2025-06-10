@@ -1,7 +1,9 @@
 ### Docker cron projects:
-- [`Alpine` with `dcron` and image building](alpine_dcron/Alpine_dcron.md)
+- [`Alpine` with `dcron` and custom image building](alpine_dcron/Alpine_dcron.md) 
+  - to configure cron tasks without files mounting, only via env variables setting
 - [`Alpine` with `dcron` and `kennyhyun/alpine-cron` published image](alpine_dcron_published/README.md)
-- 
+  - no need to build it by yourself, but you must mount files for configuration
+
 ### Documentation
 
 - [Gentoo wiki's cron guide](https://wiki.gentoo.org/wiki/Cron)

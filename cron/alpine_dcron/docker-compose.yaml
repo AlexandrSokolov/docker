@@ -14,6 +14,6 @@ services:
         *       *       *       *       *       echo hello from on-fly task 1 
         *       *       *       *       *       curl -i -X HEAD -w "\n" -H 'Content-Type: application/json' http://www.google.de
         *       *       *       *       *       wrong_command
-        completely * wrong * expression
+        completely * wrong cron * expression example
     networks:
       - default
