@@ -4,10 +4,12 @@ This project describes how to use and monitor:
 - Docker Daemon
 - Grafana for Visualization
 
+[Metrics](prometheus.metrics.md)
+
 ### Documentation:
 - [`Prometheus` official site documentation](https://prometheus.io/docs/introduction/overview/)
 - [Collect Docker metrics with Prometheus](https://docs.docker.com/engine/daemon/prometheus/)
-
+- [`prometheus` command line flags](https://prometheus.io/docs/prometheus/latest/command-line/prometheus/)
 
 ### Prometheus, what is it, its purpose.
 
@@ -188,6 +190,8 @@ like `node_cpu_seconds_total` and `node_exporter_build_info`.
 
 ### Monitoring Docker Daemon
 
+[Collect Docker metrics with Prometheus](https://docs.docker.com/engine/daemon/prometheus/)
+
 Create `/etc/docker/daemon.json` if it does not exist:
 ```bash
 sudo touch /etc/docker/daemon.json
@@ -200,7 +204,7 @@ cat /etc/docker/daemon.json
 }
 ```
 Note: don't set `"metrics-addr"` to `"127.0.0.1:9323"`, 
-otherwise it will work only with target, defined as `targets: ["host.docker.internal:9323"]`:
+otherwise it will not work only with target, defined as `targets: ["host.docker.internal:9323"]`:
 ```bash
 cat /etc/docker/daemon.json
 {
@@ -227,8 +231,8 @@ scrape_configs:
       - targets: ["host.docker.internal:9323"]
 ```
 
-Docker demon metrics:
-TODO
+[Docker daemon metrics](prometheus.metrics.md#docker-daemon-metrics)
+
 
 ### Grafana for Visualization
 
