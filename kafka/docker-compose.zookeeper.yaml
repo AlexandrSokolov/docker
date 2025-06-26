@@ -1,0 +1,45 @@
+services:
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: kafka-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    ports:
+      - "2181:2181"
+    networks:
+      - kafka-net
+
+  kafka-broker:
+    # the last version that supports zookeeper
+    image: 'apache/kafka:3.9.1'
+    container_name: kafka-broker
+    depends_on:
+      - zookeeper
+    networks:
+      - kafka-net
+    ports:
+      - "9092:9092"
+    environment:
+      ### Predefined topic ###
+      KAFKA_CREATE_TOPICS: "dev-topic:1:1" # replication factor 1 and partition count 1.
+
+      KAFKA_ZOOKEEPER_CONNECT: kafka-zookeeper:2181
+
+      ##### Listeners configuration #####
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      # todo KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker:29092,PLAINTEXT_HOST://localhost:9092
+      #KAFKA_LISTENERS: PLAINTEXT://kafka-broker:29092,CONTROLLER://kafka-broker:29093,PLAINTEXT_HOST://0.0.0.0:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,CONTROLLER:PLAINTEXT
+
+      ##### Kafka configuration ######
+      #CLUSTER_ID - if not set a default one will be generated
+      #KAFKA_BROKER_ID - Id number of the broker, if not set a default one will be generated
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      #todo KAFKA_PROCESS_ROLES: broker,controller
+      #todo KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka-broker:29093
+
+
+networks:
+  kafka-net:

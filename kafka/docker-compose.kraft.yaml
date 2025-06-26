@@ -1,0 +1,42 @@
+services:
+
+  kafka-broker:
+    image: 'apache/kafka:4.0.0'
+    container_name: kafka-broker
+    ports:
+      - "9092:9092"
+    environment:
+      ### Predefined topic ###
+      KAFKA_CREATE_TOPICS: "dev-topic:1:1" # replication factor 1 and partition count 1.
+
+      ##### Listeners configuration #####
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENERS: PLAINTEXT://kafka-broker:29092,CONTROLLER://kafka-broker:29093,PLAINTEXT_HOST://0.0.0.0:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,CONTROLLER:PLAINTEXT
+
+      ##### Kafka configuration ######
+      #CLUSTER_ID - if not set a default one will be generated
+      KAFKA_NODE_ID: 1 # "node.id" - required INT identifier, has no default value
+      #KAFKA_BROKER_ID - Id number of the broker, if not set a default one will be generated
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka-broker:29093
+    networks:
+      - kafka-net
+
+  kafka-ui:
+    image: kafbat/kafka-ui:main
+    container_name: kafka-ui
+    ports:
+      - 8080:8080
+    environment:
+      DYNAMIC_CONFIG_ENABLED: "true"
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-broker:9093
+    depends_on:
+      - kafka-broker
+
+networks:
+  kafka-net:
