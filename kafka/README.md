@@ -71,13 +71,22 @@ docker logs kafka-broker
 ### Produce message
 
 ```bash
+docker exec -it -w /opt/kafka/bin kafka-broker sh
 ./kafka-console-producer.sh  --topic my-topic --bootstrap-server kafka-broker:29092
 ```
 
 ### Consume message
 
+From a new `my-topic` topic:
 ```bash
+docker exec -it -w /opt/kafka/bin kafka-broker sh
 ./kafka-console-consumer.sh --topic my-topic --from-beginning --bootstrap-server kafka-broker:29092
+```
+
+From initially created `dev-topic` topic:
+```bash
+docker exec -it -w /opt/kafka/bin kafka-broker sh
+./kafka-console-consumer.sh --topic dev-topic --from-beginning --bootstrap-server kafka-broker:29092
 ```
 
 ### Connection to the Kafka broker
