@@ -6,9 +6,6 @@ services:
     ports:
       - "9092:9092"
     environment:
-      ### Predefined topic ###
-      KAFKA_CREATE_TOPICS: "dev-topic:1:1" # replication factor 1 and partition count 1.
-
       ##### Listeners configuration #####
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
@@ -34,9 +31,11 @@ services:
     environment:
       DYNAMIC_CONFIG_ENABLED: "true"
       KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-broker:9093
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-broker:29092
     depends_on:
       - kafka-broker
+    networks:
+      - kafka-net
 
 networks:
   kafka-net:

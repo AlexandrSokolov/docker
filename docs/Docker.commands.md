@@ -3,6 +3,7 @@
 - [Run the command on the running container](#run-the-command-on-the-running-container)
 - [Connect to the running container](#connect-to-the-running-container)
 - [Stop `Docker` container(s)](#stop-docker-containers)
+- [Fix `permission denied` when you try to stop a container](#fix-permission-denied-when-you-try-to-stop-a-container)
 - [Remove `Docker` container(s)](#remove-docker-containers)
 - [Remove `Docker` image(s)](#remove-docker-images)
 - [TODO remove volumes]()
@@ -97,6 +98,29 @@ docker exec container_name date
     ```bash
     docker stop $(docker ps -a -q)
     ```
+
+### Fix `permission denied` when you try to stop a container
+
+When you try to stop a container you get the error:
+> cannot kill Docker container - permission denied
+
+Fix:
+```bash
+#check status
+sudo aa-status | grep docker
+#shutdown and prevent it from restarting:
+sudo aa-disable
+#Unload AppArmor profiles
+sudo aa-teardown
+#check status
+sudo aa-status | grep docker
+```
+
+Now you should be able to stop the container.
+
+Notes:
+- `sudo aa-disable` is the same as `sudo systemctl disable apparmor.service --now`
+- `sudo service apparmor teardown` - not working on Ubuntu 24 LTS
 
 ### Remove `Docker` containers
 

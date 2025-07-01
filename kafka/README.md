@@ -12,6 +12,7 @@
 [`Apache Kafka` Docker repository](https://hub.docker.com/r/apache/kafka)
 
 Configuration:
+- [Krafka Docker base images](#krafka-docker-base-images)
 - [Roles configuration](#roles-configuration)
 - [Topic replication configuration](#topic-replication-configuration)
 - [Broker configs official documentation](https://docs.confluent.io/platform/current/installation/configuration/broker-configs.html)
@@ -43,7 +44,7 @@ To do so, you can run [`Kafbat` UI web application](https://github.com/kafbat/ka
     environment:
       DYNAMIC_CONFIG_ENABLED: "true"
       KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-broker:9093
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-broker:29092
     depends_on:
       - kafka-broker
 ```
@@ -69,6 +70,10 @@ docker logs kafka-broker
    ./kafka-topics.sh --create --topic my-topic --partitions 1 --replication-factor 1 --bootstrap-server kafka-broker:29092
    ```
 
+Notes:
+`KAFKA_CREATE_TOPICS: "dev-topic:1:1"` is ignored. 
+The topic does not get created on the container start for `apache/kafka`.
+
 ### List existing topics
 
 ```bash
@@ -79,6 +84,7 @@ docker exec -it -w /opt/kafka/bin kafka-broker sh
 
 ### Produce message
 
+For `apache/kafka` base image:
 ```bash
 docker exec -it -w /opt/kafka/bin kafka-broker sh
 ./kafka-console-producer.sh  --topic my-topic --bootstrap-server kafka-broker:29092
@@ -86,16 +92,10 @@ docker exec -it -w /opt/kafka/bin kafka-broker sh
 
 ### Consume message
 
-From a new `my-topic` topic:
+For `apache/kafka` base image from `my-topic` topic:
 ```bash
 docker exec -it -w /opt/kafka/bin kafka-broker sh
 ./kafka-console-consumer.sh --topic my-topic --from-beginning --bootstrap-server kafka-broker:29092
-```
-
-From initially created `dev-topic` topic:
-```bash
-docker exec -it -w /opt/kafka/bin kafka-broker sh
-./kafka-console-consumer.sh --topic dev-topic --from-beginning --bootstrap-server kafka-broker:29092
 ```
 
 ### Connection to the Kafka broker
@@ -118,6 +118,16 @@ Note:
 (Kafka servers) that a client (producer or consumer) connects to when establishing a connection to the Kafka cluster. 
 This initial connection allows the client to discover the full topology of the Kafka cluster, 
 including all brokers and their metadata.
+
+### Krafka Docker base images
+
+- [`apache/kafka` - base Kafka image from Apache](https://hub.docker.com/r/apache/kafka)
+- [`bitnami/kafka` from `VMware`, supports `KRaft` mode](https://hub.docker.com/r/bitnami/kafka)
+- [`confluentinc/cp-kafka`, `ZooKeeper` is required, `KRaft` not supported](https://hub.docker.com/r/confluentinc/cp-kafka)
+- [`wurstmeister/kafka` pretty outdated](https://hub.docker.com/r/wurstmeister/kafka)
+
+Notes:
+Base on different base images different options and paths are used. 
 
 ### Roles configuration
 
