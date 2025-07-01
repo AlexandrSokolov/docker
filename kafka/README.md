@@ -59,12 +59,12 @@ docker logs kafka-broker
 
 ### Create a topic
 
-1. Create `my-topic` topic:
+1. Create `my-topic` topic for `apache/kafka` base image:
    ```bash
    docker exec -it -w /opt/kafka/bin kafka-broker sh
    ./kafka-topics.sh --create --topic my-topic --bootstrap-server kafka-broker:29092
    ```
-2. Create `my-topic` topic, set `partitions` number and `replication-factor`:
+2. Create `my-topic` topic, set `partitions` number and `replication-factor` for `apache/kafka` base image:
    ```bash
    docker exec -it -w /opt/kafka/bin kafka-broker sh
    ./kafka-topics.sh --create --topic my-topic --partitions 1 --replication-factor 1 --bootstrap-server kafka-broker:29092
@@ -76,6 +76,7 @@ The topic does not get created on the container start for `apache/kafka`.
 
 ### List existing topics
 
+For `apache/kafka` base image:
 ```bash
 docker exec -it -w /opt/kafka/bin kafka-broker sh
 ./kafka-topics.sh --list --bootstrap-server kafka-broker:29092
@@ -127,7 +128,7 @@ including all brokers and their metadata.
 - [`wurstmeister/kafka` pretty outdated](https://hub.docker.com/r/wurstmeister/kafka)
 
 Notes:
-Base on different base images different options and paths are used. 
+- Base on different base images different options and paths (to `bin` folder with kafka scripts) are used. 
 
 ### Roles configuration
 
