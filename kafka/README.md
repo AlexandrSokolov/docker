@@ -3,6 +3,7 @@
 - [Check `Kafka` state via browser](#check-kafka-state-via-browser)
 - [Check logs](#check-logs)
 - [Create topic](#create-a-topic)
+- [List existing topics](#list-existing-topics)
 - [Produce message](#produce-message)
 - [Consume message](#consume-message)
 - [Connection to the Kafka broker](#connection-to-the-kafka-broker)
@@ -67,6 +68,14 @@ docker logs kafka-broker
    docker exec -it -w /opt/kafka/bin kafka-broker sh
    ./kafka-topics.sh --create --topic my-topic --partitions 1 --replication-factor 1 --bootstrap-server kafka-broker:29092
    ```
+
+### List existing topics
+
+```bash
+docker exec -it -w /opt/kafka/bin kafka-broker sh
+./kafka-topics.sh --list --bootstrap-server kafka-broker:29092
+```
+
 
 ### Produce message
 
