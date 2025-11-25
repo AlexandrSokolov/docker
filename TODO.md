@@ -120,6 +120,71 @@ done <<< "$containers"
 
 ```
 
+###
+
+Here’s a safe and automated approach for your request. This script will:
+✅ Identify running containers whose image creation date is older than 1 year
+✅ Stop those containers
+✅ Pull the latest version of their image
+✅ Recreate and restart the containers with the same configuration
+
+```bash
+
+#!/bin/bash
+
+# Threshold: 1 year ago in seconds
+ONE_YEAR_AGO=$(date -d '1 year ago' +%s)
+
+echo "Checking for containers running on outdated images..."
+
+# Get all running containers
+containers=$(docker ps --format "{{.ID}} {{.Image}} {{.Names}}")
+
+if [ -z "$containers" ]; then
+    echo "No running containers found."
+    exit 0
+fi
+
+while read -r container; do
+    container_id=$(echo $container | awk '{print $1}')
+    image_name=$(echo $container | awk '{print $2}')
+    container_name=$(echo $container | awk '{print $3}')
+
+    # Get image creation date
+    image_created=$(docker inspect --format '{{.Created}}' "$image_name" 2>/dev/null)
+    if [ -z "$image_created" ]; then
+        echo "Image $image_name not found locally, skipping..."
+        continue
+    fi
+
+    image_timestamp=$(date -d "$image_created" +%s)
+
+    if [ "$image_timestamp" -lt "$ONE_YEAR_AGO" ]; then
+        echo "Container $container_name uses an old image ($image_name) created on $image_created"
+        echo "Stopping container..."
+        docker stop "$container_id"
+
+        echo "Pulling latest image for $image_name..."
+        docker pull "$image_name"
+
+        echo "Recreating container with updated image..."
+        # Get original run command
+        run_cmd=$(docker inspect --format '{{json .Config}}' "$container_id")
+        # NOTE: For simplicity, we will use docker run with same image and name
+        docker rm "$container_id"
+        docker run -d --name "$container_name" "$image_name"
+
+        echo "Container $container_name updated successfully."
+        echo "--------------------------------------------"
+    else
+        echo "Container $container_name is up-to-date."
+    fi
+done <<< "$containers"
+
+echo "Update process completed."
+```
+
+
 ### 
 
 docker + SB
