@@ -1,3 +1,127 @@
+### docker container inspection
+
+a ready-to-use script that:
+- Lists all running containers
+- Shows their image layers, versions, and creation dates in a clean format:
+```bash
+#!/bin/bash
+
+echo "=== Running Containers and Image Details ==="
+echo
+
+# Get all running containers
+containers=$(docker ps --format "{{.ID}} {{.Image}} {{.Names}}")
+
+if [ -z "$containers" ]; then
+    echo "No running containers found."
+    exit 0
+fi
+
+# Loop through each container
+while read -r container; do
+    container_id=$(echo $container | awk '{print $1}')
+    image_name=$(echo $container | awk '{print $2}')
+    container_name=$(echo $container | awk '{print $3}')
+
+    echo "Container: $container_name (ID: $container_id)"
+    echo "Image: $image_name"
+    echo "--------------------------------------------"
+
+    # Show image layers with creation date and size
+    echo "Layers:"
+    docker history "$image_name" --format "  Created: {{.CreatedSince}} | Size: {{.Size}} | Command: {{.CreatedBy}}"
+
+    # Show full metadata (creation date, architecture, etc.)
+    echo
+    echo "Image Metadata:"
+    docker inspect "$image_name" | grep -E '\"Created\"|\"Os\"|\"Architecture\"'
+
+    echo "============================================"
+    echo
+done <<< "$containers"
+```
+
+What It Does
+- Lists all running containers (docker ps).
+- For each container:
+  Displays container name, ID, and image name.
+  Shows image layers with:
+    Creation time (CreatedSince)
+    Size
+    Command used to create the layer
+- Displays image metadata:
+  Creation timestamp
+  OS
+  Architecture
+
+### extended version of the script that not only inspects local Docker images but also queries the Docker Hub API to fetch official metadata like creation date and version tags:
+
+```bash
+
+#!/bin/bash
+
+echo "=== Running Containers and Image Detailsecho "=== Running Containers and Image Details ==="
+
+# Get all running containers
+containers=$(docker ps --format "{{.ID}} {{.Image}} {{.Names}}")
+
+if [ -z "$containers" ]; then
+    echo "No running containers found."
+    exit 0
+fi
+
+# Function to fetch metadata from Docker Hub
+fetch_dockerhub_metadata() {
+    image="$1"
+    # Split image into repo and tag
+    repo=$(echo "$image" | cut -d':' -f1)
+    tag=$(echo "$image" | cut -d':' -f2)
+    if [ -z "$tag" ]; then
+        tag="latest"
+    fi
+
+    # Handle official images (like ubuntu) vs user images
+    if [[ "$repo" != *"/"* ]]; then
+        repo="library/$repo"
+    fi
+
+    echo "Fetching Docker Hub metadata for $repo:$tag..."
+    curl -s "https://hub.docker.com/v2/repositories/$repo/tags/$tag" | \
+    jq '.name, .last_updated, .images[0].os, .images[0].architecture'
+}
+
+# Loop through each container
+while read -r container; do
+    container_id=$(echo $container | awk '{print $1}')
+    image_name=$(echo $container | awk '{print $2}')
+    container_name=$(echo $container | awk '{print $3}')
+
+    echo "Container: $container_name (ID: $container_id)"
+    echo "Image: $image_name"
+    echo "--------------------------------------------"
+
+    # Show image layers with creation date and size
+    echo "Layers:"
+    docker history "$image_name" --format "  Created: {{.CreatedSince}} | Size: {{.Size}} | Command: {{.CreatedBy}}"
+
+    # Show local image metadata
+    echo
+    echo "Local Image Metadata:"
+    docker inspect "$image_name" | grep -E '\"Created\"|\"Os\"|\"Architecture\"'
+
+    # Fetch Docker Hub metadata
+    echo
+    echo "Docker Hub Metadata:"
+    fetch_dockerhub_metadata "$image_name"
+
+    echo "============================================"
+    echo
+done <<< "$containers"
+
+```
+
+### 
+
 docker + SB
 documentation
 cron job
@@ -35,6 +159,17 @@ https://docs.docker.com/engine/logging/
 https://docs.google.com/document/d/15MAekRYXeFXUDwPtvy6_9g2q5gLySvtGzs88FDkCXM0/edit?tab=t.0
 
 ### [Base Docker images with JVM](docs/Base.Docker.images.md#base-docker-images-with-jvm)
+
+Recommended by [openjdk](https://hub.docker.com/_/openjdk):
+https://hub.docker.com/_/eclipse-temurin
+https://hub.docker.com/_/amazoncorretto
+https://hub.docker.com/_/sapmachine
+
+The other often used:
+https://hub.docker.com/r/bellsoft/liberica-openjdk-alpine
+https://hub.docker.com/r/bellsoft/liberica-openjdk-debian
+https://hub.docker.com/r/alpine/java
+
 
 ?
 ```Dockerfile
